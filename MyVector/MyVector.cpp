@@ -107,8 +107,65 @@ public:
 		cout << "Move Constructor\n";
 	}
 
+	void operator()() // operator()
+	{
+		for (size_t i = 0; i < size; i++)
+		{
+			cout << arr[i] << " ";
+		}
+		cout << "Operator() " << endl;
+	}
 
-	MyVector& operator = (MyVector& obj2)
+	MyVector& operator+=(int number) // operator +=
+	{
+		cout << "operator+=\n";
+		int* newArr = new int[size + number];
+		for (size_t i = 0; i < size; i++) {
+			newArr[i] = arr[i];
+		}
+		for (size_t i = 0; i < number; i++)
+		{
+			newArr[size + i] = rand() % 50;
+		}
+		delete[] arr;
+		arr = newArr;
+		size += number;
+		return *this;
+	}
+
+	MyVector& operator-=(int number) // operator -=
+	{
+
+		cout << "operator-=\n";
+		int* newArr = new int[size - number];
+		for (size_t i = 0; i < size - number; i++) {
+			newArr[i] = arr[i];
+			cout << arr[i] << " ";
+		}
+		delete[] arr;
+		arr = newArr;
+		size -= number;
+		return *this;
+
+	}
+
+
+
+	MyVector& operator*=(int number) {
+		cout << "operator*=\n";
+		for (size_t i = 0; i < size; i++)
+		{
+			arr[i] *= number;
+			cout << arr[i] << " ";
+		}
+		return *this;
+	}
+
+	operator int() { // перегрузка типов
+		return size;
+	}
+
+	MyVector& operator= (MyVector& obj2)
 	{
 		cout << "operator = \n";
 		if (this == &obj2)
@@ -121,13 +178,13 @@ public:
 			delete[]arr;
 		}
 
+		size = obj2.size;
 
 		arr = new int[size + 1];
 		for (int i = 0; i < size; i++)
 		{
 			arr[i] = obj2.arr[i];
 		}
-		size = obj2.size;
 
 
 		return *this;
@@ -144,17 +201,37 @@ int main()
 	vec1.Init();
 	vec1.Print();
 
-	/*for (size_t i = 0; i < vec1.GetSize(); i++)
-	{
-		cout << vec1[i] << "\t";
-	}
-	cout << endl;*/
+	//for (size_t i = 0; i < vec1.GetSize(); i++)
+	//{
+	//	cout << vec1[i] << "\t";
+	//}
+	//cout << endl;
 
+
+
+	int size = vec1; // 1.+
+	cout << "Size = " << size << endl;
+
+	vec1();//2.+
+
+	MyVector vec10(3);
+	vec10.Init();
+	vec10+=5; // operatro +=
+	vec10.Print();
+
+
+	vec10 -= 2; // operator -=
+
+	cout << "\n";
+
+	vec10 *= 5; // operator *=
+	
+	cout << "\n";
 
 	MyVector vec2 = vec1;
 	vec2.Print();
 
-	MyVector vec3(5);
+	MyVector vec3(3);
 	vec3 = vec1;
 	vec3.Print();
 
