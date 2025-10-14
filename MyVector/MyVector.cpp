@@ -42,6 +42,11 @@ public:
 		return size;
 	}
 
+	void SetSize(int s)
+	{
+		size = s;
+	}
+
 	int operator[](int index)
 	{
 		if (index >= 0 && index < size)
@@ -51,6 +56,14 @@ public:
 		return -1;
 	}
 
+	void SetArr(int e) {
+		*arr = e;
+	}
+
+	int GetArr()
+	{
+		return *arr;
+	}
 
 
 	MyVector operator++(int) // obj++
@@ -151,7 +164,7 @@ public:
 
 
 
-	MyVector& operator*=(int number) {
+	MyVector& operator*=(int number) { // operator *=
 		cout << "operator*=\n";
 		for (size_t i = 0; i < size; i++)
 		{
@@ -191,7 +204,35 @@ public:
 	}
 
 
+
+
+
 };
+
+
+MyVector operator+(int c, MyVector& b) // + 5 function
+{
+	int result;
+	for (size_t i = 0; i < b.GetSize(); i++)
+	{
+		result = b[i] + c;
+		cout << result << " ";
+	}
+	cout << "+ 5 k znaheniu" << endl;
+	return result;
+}
+
+
+MyVector operator--(MyVector& obj)
+{
+	cout << "peregruzka -- cherez function" << endl;
+	MyVector result(obj.GetSize() - 1);
+	for (size_t i = 0; i < obj.GetSize() - 1; i++)
+	{
+		cout << obj[i] << "\t";
+	}
+	return result;
+}
 
 int main()
 {
@@ -214,13 +255,21 @@ int main()
 
 	vec1();//2.+
 
-	MyVector vec10(3);
+	MyVector vec10(10);
 	vec10.Init();
 	vec10+=5; // operatro +=
 	vec10.Print();
+	
+	cout << "\n";
 
+	MyVector vec15 = 5 + vec10;
+	cout << "\n";// + 5 
 
-	vec10 -= 2; // operator -=
+	MyVector vec21 = --vec10; // function operator --obj
+
+	cout << "\n";
+
+	 vec10 -= 2;// operator -=
 
 	cout << "\n";
 
