@@ -6,8 +6,13 @@ class MyVector
 {
 	int* arr;
 	int size;
+	friend ostream& operator << (ostream& os, MyVector& obj);
+	friend istream& operator>>(istream& os, MyVector& obj);
 
 public:
+
+	/*friend void Test(MyVector& obj);*/
+
 	MyVector() :arr(nullptr), size(0) {}
 	MyVector(int s) :size(s) {
 		arr = new int[size];
@@ -206,8 +211,40 @@ public:
 
 
 
-
 };
+
+//void Test(MyVector& obj)
+//{
+//	for (size_t i = 0; i < obj.size; i++)
+//	{
+//
+//	}
+//}
+
+
+ ostream& operator<<(ostream& os, MyVector& obj) //operator << 
+ {
+	 os << "Peregruzka <<\n";
+	 for (size_t i = 0; i < obj.size; i++)
+	 {
+		 os << obj.arr[i] << " ";
+	 }
+	 return os;
+ }
+
+
+ istream& operator>>(istream& is, MyVector& obj) // operator >>
+ {
+	 int a;
+	 for (size_t i = 0; i < obj.size; i++)
+	 {
+		 is >> a;
+		 obj.arr[i] = a;
+	 }
+	 return is;
+ }
+
+
 
 
 MyVector operator+(int c, MyVector& b) // + 5 function
@@ -259,8 +296,16 @@ int main()
 	vec10.Init();
 	vec10+=5; // operatro +=
 	vec10.Print();
-	
+
 	cout << "\n";
+
+	cout << vec10;// peregruzka <<
+	
+	cout << "\n\n";
+
+	cin >> vec10; // operator >>
+
+	cout << "\n\n";
 
 	MyVector vec15 = 5 + vec10;
 	cout << "\n";// + 5 
@@ -294,5 +339,8 @@ int main()
 
 	MyVector vec4 = move(vec1);
 
+
+
 }
+
 
