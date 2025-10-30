@@ -15,7 +15,25 @@ public:
 
 	MyVector() :arr(nullptr), size(0) {}
 	MyVector(int s) :size(s) {
-		arr = new int[size];
+		try {
+			if (size < 0)
+			{
+				throw "Massive ne mozet but menshe 0";
+			}
+			for (size_t i = 0; i < size; i++)
+			{
+			    if (i > size || i < size)
+				{
+					throw "Error";
+				}
+			}
+				arr = new int[size];
+		}
+		catch (const char* str)
+		{
+			cout << "Catch exception " << str << endl;
+		}
+
 	}
 
 
